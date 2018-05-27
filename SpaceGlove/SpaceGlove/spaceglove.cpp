@@ -1,8 +1,6 @@
 #include "SpaceGlove.h"
 #include "Arduino.h"
 
-
-
 SpaceGlove::SpaceGlove() {
 
 }
@@ -40,6 +38,50 @@ void SpaceGlove::attachPulse(int inPulsePin){
 }
 
 int SpaceGlove::readPulse(){
-  return analogRead(pulsePin);
+  lectura_sensor = analogRead(pulsePin);
+  return lectura_sensor;
+}
+
+void SpaceGlove::takepulse(){
+  muestras ++;
+  lectura_sensor_acumulador += readPulse();
+  media_lectura_sensor = (lectura_sensor_acumulador/muestras) + 300;
+  
+  if(lectura_sensor > media_lectura_sensor){
+    flag = 1;
+  }
+  else{
+    flag = 0;
+  }
+
+  if(flag_ante == 0 && flag == 1){
+      inpulse = 1;
+      }
+  if(inpulse ==  1){
+    if(flag == 0 && flag_ante == 1){
+      inpulse = 0;
+      pulso++;
+      }
+    }
+    
+    flag_ante = flag;
+    
+  
+}
+
+
+int SpaceGlove::aux(){
+  return media_lectura_sensor;
+}
+
+int SpaceGlove::aux1(){
+  return lectura_sensor;
+}
+int SpaceGlove::printpulse(){
+  return pulso;
+  
+}
+void SpaceGlove::reset(){
+  pulso = 0;
 }
 

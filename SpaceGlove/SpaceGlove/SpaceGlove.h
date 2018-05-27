@@ -18,7 +18,18 @@ class SpaceGlove{
   //Pulse sensor attributes
   int pulsePin;
   int pulseValue;
-  
+  //Median level
+  int muestras;
+  int lectura_sensor;
+  int media_lectura_sensor;
+  long lectura_sensor_acumulador = 0;
+  int contador;
+  int flag;
+  int inpulse = 0;
+  int pulso;
+  int flag_ante = 0;
+  int pp;
+  unsigned long auxMillis = 0;
   
   public:
     //Constructor
@@ -34,8 +45,15 @@ class SpaceGlove{
 
     //Pulse methods
     void attachPulse(int inPulsePin);
+    
+    //Funcion auxiliar
     int readPulse();
+    void takepulse();
 
+    int aux();
+    int aux1();
+    int printpulse();
+    void reset();
    
   
 };
